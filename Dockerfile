@@ -11,5 +11,5 @@ COPY src .
 RUN apk add php
 
 # Para ejecutar: php -f index.php
-ENTRYPOINT /usr/bin/php
-CMD [-f index.php -S 0.0.0.0:8080]
+ENTRYPOINT ["/usr/bin/php"]
+CMD ["-f index.php -S 0.0.0.0:8080"]
