@@ -1,0 +1,32 @@
+networks:
+  phpinfo-2:
+    internal: true
+services:
+  phpinfo-2:
+    deploy:
+      mode: replicated # replicated varias en una misma VM, global sólo una por MV
+      placement:
+        constraints:
+        - node.role == worker
+      replicas: 2
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 100m
+        reservations:
+          cpus: "0.1"
+          memory: 100m
+    expose:
+    - 8080
+    healthcheck:
+      interval: 10s
+      retry: 3
+      start_period: 30s
+      test: php -r "print file_get_contents('http://localhost:8080/');"
+      timeout: 1s
+    image: ccervigonavila/phpinfo-2:latest
+    networks:
+    - phpinfo-2
+    ports:
+    - 8080:8080
+version: "3.8"
