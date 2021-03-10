@@ -3,28 +3,28 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: phpinfo-2
-spec: 
+spec:
   replicas: 2
-  selector: 
+  selector:
     matchLabels:
       app: phpinfo-2
-  template: 
-    metadata: 
-      labels: 
+  template:
+    metadata:
+      labels:
         app: phpinfo-2
     spec:
-      containers: 
+      containers:
       - name: phpinfo-2
-        image: terferre/phpinfo-2:latest
+        image: ccervigonavila/phpinfo-2:latest
         imagePullPolicy: Always
         livenessProbe:
-          tcpSocket: 
+          tcpSocket:
             port: 8080
           failureThreshold: 3
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 1
-        ports: 
+        ports:
         - containerPort: 8080
         readinessProbe:
           httpGet:
