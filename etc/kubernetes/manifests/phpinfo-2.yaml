@@ -58,7 +58,7 @@ metadata:
 spec:
   ingress:
   - ports:
-    - 8080
+    - port: 8080
   podSelector:
     matchLabels:
       app: phpinfo-2
