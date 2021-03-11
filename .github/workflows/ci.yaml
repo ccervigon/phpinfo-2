@@ -102,6 +102,7 @@ jobs:
         while true
           do \
             sleep 10
+            kubectl describe deploy
             kubectl get deploy | grep "phpinfo-2.*\([0-9]\)/\1" && break
           done
         while true
