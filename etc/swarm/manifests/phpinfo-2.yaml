@@ -20,7 +20,7 @@ services:
     - 8080
     healthcheck:
       interval: 10s
-      retry: 3
+      #retry: 3
       start_period: 30s
       timeout: 1s
     image: ccervigonavila/phpinfo-2:latest
