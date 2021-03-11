@@ -17,30 +17,6 @@ spec:
       - name: phpinfo-2
         image: ccervigonavila/phpinfo-2:latest
         imagePullPolicy: Always
-        livenessProbe:
-          tcpSocket:
-            port: 8080
-          failureThreshold: 3
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        ports:
-        - containerPort: 8080
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          failureThreshold: 3
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        resources:
-          limits:
-            cpu: 100m
-            memory: 100m
-          requests:
-            cpu: 100m
-            memory: 100m
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
