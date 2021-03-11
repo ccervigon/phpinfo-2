@@ -2,7 +2,7 @@ name: CI
 on:
   push:
     branches:
-    - docker
+    - v2.0
 jobs:
   docker:
     runs-on: ubuntu-18.04
@@ -35,7 +35,7 @@ jobs:
         docker build -t ccervigonavila/phpinfo-2:testing .
         docker swarm init
         compose=etc/swarm/manifests/phpinfo-2.yaml
-        sed -i /image:/s/latest/testing/ ${compose}
+        sed -i /image:/s/2.0/testing/ ${compose}
         sed -i /node.role/s/worker/manager/ ${compose}
         # Despliegue en Openshift
         # oc apply -f ${compose}
@@ -91,7 +91,7 @@ jobs:
         master=$( kubectl get node | grep master | awk '{ print $1 }' )
         kubectl taint node ${master} node-role.kubernetes.io/master:NoSchedule-
         compose=etc/kubernetes/manifests/phpinfo-2.yaml
-        sed -i /image:/s/latest/testing/ ${compose}
+        sed -i /image:/s/2.0/testing/ ${compose}
         sed -i /imagePullPolicy/s/Always/Never/ ${compose}
         # Despliegue en Openshift
         # oc apply -f ${compose}
