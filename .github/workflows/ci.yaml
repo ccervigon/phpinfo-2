@@ -24,3 +24,32 @@ jobs:
             sleep 10
             docker logs container_test 2>& 1 | grep 'PHP .* Development Server .* started' && break
           done
+  swarm:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: chekout
+      uses: actions/checkout@v2
+    - name: test
+      run: |
+        set -x
+        docker build -t ccervigonavila/phpinfo-2:testing .
+        docker swarm init
+        compose=etc/swarm/manifests/phpinfo-2.yaml
+        sed -i /image:/s/latest/testing/ ${compose}
+        sed -i /node.role/s/worker/manager/ ${compose}
+        # Despliegue en Openshift
+        # oc apply -f ${compose}
+        # Despliegue Kubernetes
+        # kubectl apply -f ${compose}
+        # Despliegue en swarm
+        docker stack deploy -c ${compose} phpinfo-2
+        while true
+          do \
+            sleep 10
+            docker service ls | grep "phpinfo-2.*\([0-9]\)/\1" && break
+          done
+        while true
+          do \
+            sleep 10
+            docker service logs phpinfo-2_phpinfo-2 2>& 1 | grep 'PHP .* Development Server .* started' && break
+          done
