@@ -23,7 +23,7 @@ services:
       #retry: 3
       start_period: 30s
       timeout: 1s
-    image: ccervigonavila/phpinfo-2:latest
+    image: ccervigonavila/phpinfo-2:2.0
     networks:
     - phpinfo-2
     ports:
